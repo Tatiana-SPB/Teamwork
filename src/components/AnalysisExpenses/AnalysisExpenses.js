@@ -23,11 +23,8 @@ export const Scontent = styled.div`
   gap: 32px;
 `;
 
-export const Stable__box = styled.div`
-  width: 789px;
-  height: 618px;
-  overflow-y: hidden;
-  overflow-x: hidden;
+export const Scalendar__box = styled.div`
+  width: 379px;
   padding: 32px;
   display: block;
   box-shadow: 0px 20px 67px -12px #00000021;
@@ -36,12 +33,12 @@ export const Stable__box = styled.div`
   color: #000;
 `;
 
-export const Stable__name = styled.div`
+export const Scalendar__ttl = styled.h2`
   display: block;
   font-weight: 700;
   font-size: 24px;
   line-height: 100%;
   letter-spacing: 0px;
   text-align: left;
+  margin-bottom: 24px;
 `;
-
