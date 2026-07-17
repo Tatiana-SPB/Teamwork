@@ -42,3 +42,24 @@ export const Scalendar__ttl = styled.h2`
   text-align: left;
   margin-bottom: 24px;
 `;
+
+export const Sdiagram__box = styled.div`
+  width: 789px;
+  height: 540px;
+  padding: 32px;
+  display: block;
+  box-shadow: 0px 20px 67px -12px #00000021;
+  border-radius: 30px;
+  background-color: #fff;
+  color: #000;
+`;
+
+export const Sdiagram__description = styled.p`
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #999999;
+  padding-bottom: 21px;
+`;
