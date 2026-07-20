@@ -3,13 +3,17 @@ import SignInPage from "./pages/SignInPage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import MyExpensesPage from "./pages/MyExpensesPage.jsx";
 import AnalysisExpensesPage from "./pages/AnalysisExpensesPage.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
 
 function AppRoutes() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MyExpensesPage />} />
-        <Route path="/analysis" element={<AnalysisExpensesPage />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/" element={<MyExpensesPage />} />
+          <Route path="/analysis" element={<AnalysisExpensesPage />} />
+        </Route>
+
         <Route path="/login" element={<SignInPage />} />
         <Route path="/register" element={<SignUpPage />} />
       </Routes>
