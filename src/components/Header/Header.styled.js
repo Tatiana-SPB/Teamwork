@@ -35,6 +35,8 @@ export const Sheader__nav_el = styled(NavLink)`
   line-height: 170%;
   letter-spacing: 0px;
   text-align: center;
+  color: "#000";
+  font-weight: "400";
 `;
 
 export const Sheader__user = styled(Link)`

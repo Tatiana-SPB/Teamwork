@@ -24,6 +24,7 @@ export function Header() {
     localStorage.removeItem("userInfo");
     navigate("/login");
   };
+
   return (
     <SHeader>
       <Scontainer>
