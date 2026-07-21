@@ -29,6 +29,8 @@ export const Sheader__nav = styled.div`
 `;
 
 export const Sheader__nav_el = styled(NavLink)`
+  color: #000;
+  font-weight: 400;
   font-size: 14px;
   line-height: 170%;
   letter-spacing: 0px;
