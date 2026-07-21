@@ -1,3 +1,4 @@
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const SHeader = styled.header`
@@ -27,7 +28,7 @@ export const Sheader__nav = styled.div`
   gap: 48px;
 `;
 
-export const Sheader__nav_el = styled.a`
+export const Sheader__nav_el = styled(NavLink)`
   color: #000;
   font-weight: 400;
   font-size: 14px;
@@ -36,16 +37,7 @@ export const Sheader__nav_el = styled.a`
   text-align: center;
 `;
 
-export const active = styled.a`
-  color: #7334ea;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 170%;
-  letter-spacing: 0px;
-  text-align: center;
-`;
-
-export const Sheader__user = styled.a`
+export const Sheader__user = styled(Link)`
   margin-left: 414px;
   font-weight: 600;
   font-size: 14px;

@@ -100,7 +100,7 @@ export const Smodal__input = styled.input`
   }
 `;
 
-export const Smodal__a = styled.button`
+export const Smodal__btn = styled.button`
   width: 100%;
   height: 30px;
   background-color: #565eef;
