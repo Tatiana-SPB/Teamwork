@@ -1,4 +1,4 @@
-export const expensesData = [
+export const transactions = [
   {
     id: 1,
     description: "Пятерочка",

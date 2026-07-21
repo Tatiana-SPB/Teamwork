@@ -1,4 +1,4 @@
-import { expensesData } from "../../data.js";
+import { transactions } from "../../data.js";
 import {
   S__cat,
   S__cat_btn,
@@ -153,7 +153,7 @@ export function MyExpenses() {
                 </tr>
               </Stable__header>
               <Stable__data>
-                {expensesData.map((item) => (
+                {transactions.map((item) => (
                   <tr key={item.id}>
                     <td>{item.description}</td>
                     <td>{item.category}</td>
