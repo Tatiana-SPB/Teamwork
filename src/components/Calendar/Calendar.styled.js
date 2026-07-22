@@ -44,7 +44,7 @@ export const StyledCalendar = styled(Calendar)`
     padding-right: 7px;
   }
 
-  react-calendar__navigation button {
+  .react-calendar__navigation button {
     min-width: 14px;
     background: none;
     text-align: right;
@@ -136,3 +136,36 @@ export const StyledCalendar = styled(Calendar)`
     border-radius: 50%;
   }
 `;
+
+const styles = `
+  .calendar-tile--selected-start {
+    background: rgb(241, 235, 253);
+    color: rgb(115, 52, 234);
+    border-radius: 8px 0 0 8px !important;
+  }
+
+  .calendar-tile--selected-end {
+    background: rgb(241, 235, 253);
+    color: rgb(115, 52, 234);
+    border-radius: 0 8px 8px 0 !important;
+  }
+
+  .calendar-tile--selected-range-middle {
+    background: rgb(241, 235, 253);
+    color: rgb(115, 52, 234);
+    border-radius: 0 !important;
+  }
+
+  .calendar-tile--selected-range-both {
+    background: rgb(241, 235, 253);
+    color: rgb(115, 52, 234);
+    border-radius: 8px !important;
+  }
+`;
+
+const styleElement = document.createElement("style");
+styleElement.innerHTML = styles;
+if (!document.querySelector("style[data-calendar-range-styles]")) {
+  styleElement.setAttribute("data-calendar-range-styles", "true");
+  document.head.appendChild(styleElement);
+}

@@ -1,5 +1,5 @@
-import { transactions } from "../../data.js";
 import ExpensesChart from "./ExpensesChart.jsx";
+import { transactions } from "../../data.js";
 
 import {
   Scalendar__ttl,
@@ -7,25 +7,40 @@ import {
   Sdiagram__description,
 } from "../AnalysisExpenses/AnalysisExpenses.js";
 
-function Diagram() {
-  function parseDate(str) {
-    const [day, month, year] = str.split(".").map(Number);
-    return new Date(year, month - 1, day); // month 0-based
+function parseDateStr(str) {
+  const [day, month, year] = str.split(".").map(Number);
+  return new Date(year, month - 1, day);
+}
+
+// Конвертирует JS Date в строку DD.MM.YYYY для отображения
+function dateToStr(date) {
+  if (!date) return "";
+  const d = String(date.getDate()).padStart(2, "0");
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const y = date.getFullYear();
+  return `${d}.${m}.${y}`;
+}
+
+function Diagram({ startDate, endDate }) {
+  // Если даты не выбраны — показываем пустой/заглушечный отчёт
+  if (!startDate || !endDate) {
+    return (
+      <Sdiagram__box>
+        <Scalendar__ttl>0 ₽</Scalendar__ttl>
+        <Sdiagram__description>Выберите даты на календаре</Sdiagram__description>
+        <div></div>
+      </Sdiagram__box>
+    );
   }
 
-  let startDateStr = "03.07.2024";
-  let endDateStr = "03.07.2024";
+  const start = startDate instanceof Date ? startDate : parseDateStr(startDate);
+  const end = endDate instanceof Date ? endDate : parseDateStr(endDate);
 
-  const startDate = parseDate(startDateStr);
-  const endDate = parseDate(endDateStr);
-
-  // Фильтруем по дате
   const filtered = transactions.filter((t) => {
-    const tDate = parseDate(t.date);
-    return tDate >= startDate && tDate <= endDate;
+    const tDate = typeof t.date === "string" ? parseDateStr(t.date) : t.date;
+    return tDate >= start && tDate <= end;
   });
 
-  // Группируем по категориям и считаем суммы
   const categories = [
     "Еда",
     "Транспорт",
@@ -56,7 +71,7 @@ function Diagram() {
     <Sdiagram__box>
       <Scalendar__ttl>{totalExpenses.toLocaleString()} ₽</Scalendar__ttl>
       <Sdiagram__description>
-        Расходы за период: {startDateStr} - {endDateStr}
+        Расходы за период: {dateToStr(startDate)} - {dateToStr(endDate)}
       </Sdiagram__description>
       <div>
         <ExpensesChart data={expensesData} total={totalExpenses} />

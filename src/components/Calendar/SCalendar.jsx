@@ -1,35 +1,64 @@
 import Calendar from "react-calendar";
-import { useState } from "react";
 import "../Calendar/Calendar.styled.js";
 
-export function Scalendar({ onDateSelect, selectedDate }) {
-  const [calendarValue, setCalendarValue] = useState(selectedDate);
+export function Scalendar({ value, onChange, locale }) {
+  // Никакого internalValue и useEffect — value приходит сверху, его сразу передаём в Calendar
+  const displayValue =
+    typeof value === "object" && value !== null && "start" in value
+      ? [value.start, value.end]
+      : value;
 
-  const handleChange = (value) => {
-    const date = Array.isArray(value) ? value : value;
-
+  const handleChange = (raw) => {
+    const date = Array.isArray(raw) ? raw[0] : raw;
     if (date) {
-      setCalendarValue(date);
-      onDateSelect(date);
+      onChange(date);
     }
   };
 
   return (
     <Calendar
       onChange={handleChange}
-      value={calendarValue}
+      value={displayValue}
       selectRange={false}
-      locale="ru-RU"
-      showNeighborMonth={false}
+      locale={locale}
+      showNeighborMonths={false}
       tileClassName={({ date }) => {
-        if (!selectedDate) return "";
+        if (!value) return "";
 
-        const isSelected =
-          date.getDate() === selectedDate.getDate() &&
-          date.getMonth() === selectedDate.getMonth() &&
-          date.getFullYear() === selectedDate.getFullYear();
+        let isStart = false;
+        let isEnd = false;
+        let isInRange = false;
 
-        return isSelected ? "calendar-tile--selected" : "";
+        const isSameDate = (a, b) =>
+          a.getDate() === b.getDate() &&
+          a.getMonth() === b.getMonth() &&
+          a.getFullYear() === b.getFullYear();
+
+        if (value instanceof Date) {
+          // Один клик: показываем как диапазон из 1 дня
+          isStart = isSameDate(date, value);
+          isEnd = isStart;
+          isInRange = isStart;
+        } else if (typeof value === "object" && value !== null) {
+          const { start, end } = value;
+          isStart = isSameDate(date, start);
+          isEnd = isSameDate(date, end);
+          isInRange = date >= start && date <= end;
+        }
+
+        if (isInRange && !isStart && !isEnd) {
+          return "calendar-tile--selected-range-middle";
+        }
+        if (isStart && isEnd) {
+          return "calendar-tile--selected-range-both";
+        }
+        if (isStart) {
+          return "calendar-tile--selected-start";
+        }
+        if (isEnd) {
+          return "calendar-tile--selected-end";
+        }
+        return "";
       }}
       tileContent={({ date }) => {
         const today = new Date();
